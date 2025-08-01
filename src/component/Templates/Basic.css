@@ -1,0 +1,131 @@
+@page {
+  margin: 0;
+}
+
+@media print {
+  body {
+    margin: 0;
+    -webkit-print-color-adjust: exact; /* for color accuracy */
+  }
+
+  .basic-template {
+    box-shadow: none;
+    border: none;
+    width: 100vw;
+    max-width: none;
+    padding: 0;
+  }
+}
+
+.basic-template {
+  background-color: white;
+  color: black;
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.basic-details {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.basic-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.basic-info h1 {
+  font-size: 28px;
+  margin: 10px 0;
+}
+
+.contact-info {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 14px;
+  margin-top: 5px;
+  color: #555;
+}
+
+.indi-profiles {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  color: #0073b1;
+  font-size: 15px;
+}
+
+.indi-profiles svg {
+  width: 20px;
+  height: 20px;
+  fill: #0073b1;
+}
+
+a {
+  text-decoration: none;
+  color: #0073b1;
+  font-weight: 500;
+}
+
+.summary,
+.education,
+.projects,
+.skills,
+.certifications,
+.languages,
+.hobbies,
+.experience {
+  margin-top: 20px;
+}
+
+h2 {
+  font-size: 20px;
+  margin-bottom: 6px;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 4px;
+}
+
+.education-upper {
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.indi-education,
+.projects li,
+.skills li,
+.certifications li,
+.languages li,
+.hobbies li {
+  margin-bottom: 10px;
+  list-style-type: none;
+}
+
+.projects h3,
+.certifications h3 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+ul {
+  padding-left: 15px;
+}
+
+p {
+  font-size: 14px;
+  color: #333;
+  margin: 2px 0;
+}

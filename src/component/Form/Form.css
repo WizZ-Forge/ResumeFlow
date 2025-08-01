@@ -1,0 +1,226 @@
+/* ===== Color Variables ===== */
+:root {
+  --bg-main: #0d1117;
+  --bg-card: #161b22;
+  --border-color: #30363d;
+  --text-light: #c9d1d9;
+  --text-muted: #8b949e;
+  --accent: #58a6ff;
+  --accent-hover: #1f6feb;
+  --shadow: 0 0 12px rgba(88, 166, 255, 0.1);
+}
+
+/* ===== Global Styles ===== */
+body {
+  background-color: var(--bg-main);
+  color: var(--text-light);
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== Container Layout ===== */
+.form-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px;
+  background-color: var(--bg-main);
+  box-sizing: border-box;
+  flex-wrap: wrap;
+}
+.left-container {
+  overflow: scroll;
+  overflow-y: auto;
+}
+
+/* ===== Form Styles ===== */
+form {
+  background-color: var(--bg-card);
+  padding: 30px;
+  border-radius: 12px;
+
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border-color);
+}
+
+/* ===== Labels & Inputs ===== */
+label {
+  margin: 12px 0 5px;
+  font-weight: 500;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+input,
+textarea {
+  background-color: #0d1117;
+  color: var(--text-light);
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 14px;
+  transition: 0.3s all;
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 5px rgba(88, 166, 255, 0.4);
+}
+
+/* ===== Buttons ===== */
+button {
+  background-color: var(--accent);
+  color: #fff;
+  padding: 12px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--accent-hover);
+}
+
+/* ===== Resume Output Container ===== */
+.resume-container {
+  flex: 1;
+  padding: 20px;
+  background-color: var(--bg-card);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  min-width: 350px;
+}
+
+.resume-preview {
+  width: 100%;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #0d1117;
+  color: var(--text-light);
+  border: 1px solid var(--border-color);
+  margin-bottom: 20px;
+}
+
+/* ===== Modal Styling ===== */
+.ReactModal__Overlay {
+  background-color: rgba(0, 0, 0, 0.7) !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ReactModal__Content {
+  background-color: #1a1a1a;
+  color: white;
+  border-radius: 10px;
+  height: fit-content;
+  width: fit-content;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-color);
+}
+
+/* ===== Profile Section ===== */
+.profiles {
+  display: flex;
+  width: 100%;
+
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-color);
+  padding: 5px;
+  border-radius: 6px;
+  margin: 5px;
+}
+
+.profile-list {
+  display: flex;
+  flex-direction: column;
+  border-radius: 6px;
+  padding: 5px;
+  margin: 10px 0;
+}
+
+.profile-item {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+}
+
+.profile-item p {
+  margin-right: 10px;
+  color: var(--text-light);
+}
+
+i {
+  margin-right: 10px;
+
+  padding: 5px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.edit-profile-button {
+  all: unset;
+}
+
+.edit-profile-button:hover {
+  color: var(--accent);
+  background-color: #333;
+}
+
+/* ===== List and Child Items ===== */
+.list {
+  display: flex;
+  flex-direction: column;
+  border-radius: 6px;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.child {
+  display: flex;
+  width: 100%;
+
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-color);
+  padding: 10px;
+  border-radius: 6px;
+  margin: 5px;
+}
+i {
+  background-color: var(--bg-card);
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+  .form-container {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+
+  form,
+  .resume-container {
+    width: 100%;
+  }
+}
+/* ========= Modal ========= */
+.indi {
+  display: flex;
+  flex-direction: column;
+}
