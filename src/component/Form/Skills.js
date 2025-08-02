@@ -48,40 +48,45 @@ class Skills extends Component {
     this.setState({ showModal: true });
   };
   hideModal = (e) => {
+    e.preventDefault();
     if (this.state.showEditModal) {
       const { allSkills } = this.state;
       const updatedAllSkills = this.state.allSkills.map((indi) => {
         if (indi.id === this.state.selected[0].id) {
-          return { ...this.state.selected[0] }; // ✅ Use a copy to avoid mutation issues
+          return { ...this.state.selected[0] };
         } else {
           return indi;
         }
       });
 
-      this.setState({
-        allSkills: updatedAllSkills,
-        selected: [], // optional: clear selected if done editing
-      });
+      this.setState(
+        {
+          allSkills: updatedAllSkills,
+          selected: [],
+          showEditModal: false, // optional: clear selected if done editing
+        },
+        this.passSkillData
+      );
 
       console.log('update', updatedAllSkills);
       this.setState({ allSkills: updatedAllSkills });
+    } else {
+      const id = uid();
+
+      const { name, description, level } = this.state;
+
+      const newSkill = { id, name, description, level: parseInt(level) };
+      this.setState(
+        (prevState) => ({
+          allSkills: [...prevState.allSkills, newSkill],
+          name: '',
+          description: '',
+          level: '',
+          showModal: false,
+        }),
+        this.passSkillData
+      );
     }
-    e.preventDefault();
-    const id = uid();
-
-    const { name, description, level } = this.state;
-
-    const newSkill = { id, name, description, level: parseInt(level) };
-    this.setState(
-      (prevState) => ({
-        allSkills: [...prevState.allSkills, newSkill],
-        name: '',
-        description: '',
-        level: '',
-        showModal: false,
-      }),
-      this.passSkillData
-    );
   };
   ModalComponent = () => {
     return (
@@ -138,7 +143,9 @@ class Skills extends Component {
     return (
       <div className='skills'>
         <h1>Skills</h1>
-        {this.state.showModal && this.ModalComponent()}
+        {this.state.showModal && (
+          <Modal obj={this.state} fun={this.allFunction} />
+        )}
         {this.state.showEditModal && (
           <Modal obj={this.state} fun={this.allFunction} />
         )}

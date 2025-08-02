@@ -2,10 +2,9 @@ import { Component } from 'react';
 class Modal extends Component {
   formMaker = () => {
     const { fields } = this.props.obj;
-    const { showEditModal, ShowModal } = this.props.obj;
+    const { showEditModal, showModal } = this.props.obj;
     const { fun } = this.props;
 
-    const { edit } = this.props;
     const { selected } = this.props.obj;
     return (
       <div className='modal'>
@@ -33,7 +32,7 @@ class Modal extends Component {
             );
           })}
           {showEditModal && <button onClick={fun.hideModal}>Edit</button>}
-          {ShowModal && <button>Add</button>}
+          {showModal && <button onClick={fun.hideModal}>Add</button>}
         </form>
       </div>
     );
