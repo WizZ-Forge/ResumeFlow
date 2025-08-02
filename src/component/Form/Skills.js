@@ -88,26 +88,7 @@ class Skills extends Component {
       );
     }
   };
-  ModalComponent = () => {
-    return (
-      <div className='modal'>
-        <form>
-          <h1>Adds skills</h1>
-          <div className='indi'>
-            <label htmlFor='name'>Skills : </label>
-            <input type='text' id='name' onChange={this.handleOnchange} />
-          </div>
-          <label htmlFor='level'>Level : </label>
-          <input type='number' id='level' onChange={this.handleOnchange} />
 
-          <label htmlFor='Description'>Description : </label>
-          <input type='text' id='Description' onChange={this.handleOnchange} />
-
-          <button onClick={this.hideModal}>Add the skills</button>
-        </form>
-      </div>
-    );
-  };
   showEditModalComponent = (e) => {
     e.preventDefault();
     console.log('hello from edit modal');
