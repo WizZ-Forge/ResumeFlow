@@ -2,6 +2,7 @@ import { Component } from 'react';
 
 import { uid } from 'uid';
 import Modal from '../Modal/Modal';
+import editUtils from '../../utils/editUtil';
 
 import './Form.css';
 class Skills extends Component {
@@ -51,14 +52,9 @@ class Skills extends Component {
     e.preventDefault();
     if (this.state.showEditModal) {
       const { allSkills } = this.state;
-      const updatedAllSkills = this.state.allSkills.map((indi) => {
-        if (indi.id === this.state.selected[0].id) {
-          return { ...this.state.selected[0] };
-        } else {
-          return indi;
-        }
-      });
 
+      const updatedAllSkills = editUtils(allSkills, this.state.selected);
+      console.log('updatedAllSkills', updatedAllSkills);
       this.setState(
         {
           allSkills: updatedAllSkills,

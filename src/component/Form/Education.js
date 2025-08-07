@@ -1,113 +1,129 @@
 import { Component } from 'react';
-import Modal from 'react-modal';
+
 import './Form.css';
 import { uid } from 'uid';
+import Modal from '../Modal/Modal';
 
 class Education extends Component {
   state = {
     education: {
       id: '',
-      instituteName: 'Uka Tarsadia University',
-      degree: 'Bachelor of Technology',
-      startDate: '2020-08-01',
-      endDate: '2024-05-31',
-      score: '8.5',
-      description:
-        'Pursued a degree in Computer Science and Engineering with a focus on software development and data structures.',
+      instituteName: '',
+      degree: '',
+      startDate: '',
+      endDate: '',
+      score: '',
+      description: '',
       editModal: false,
       filteredEducation: '',
       allEducation: [], // Assuming this is an array to hold multiple education entries
     },
-    showEducationModal: false,
-  };
-  handleOnchange = (event) => {
-    const { name, value } = event.target;
-    const SelectedObj = event.target.dataset.id;
-    if (SelectedObj) {
-      console.log(name, value);
-      this.setState((prevState) => ({
-        [SelectedObj]: {
-          ...prevState[SelectedObj],
-          [name]: value,
-        },
-      }));
-    } else {
-      this.setState({
-        [name]: [value],
-      });
-    }
+    showModal: false,
+    showEditModal: false,
+    selected: [],
+    fields: [
+      { name: 'instituteName', label: 'Institute Name', type: 'text' },
+      { name: 'degree', label: 'Degree', type: 'text' },
+      { name: 'startDate', label: 'Start Date', type: 'date' },
+      { name: 'endDate', label: 'End Date', type: 'date' },
+      { name: 'score', label: 'Score', type: 'text' },
+      { name: 'description', label: 'Description', type: 'textarea' },
+    ],
+    selected: [],
   };
 
-  EditEducationModalComponent = () => {
-    const { education } = this.state;
-    const filteredEducation = [education];
-    return (
-      <Modal isOpen={this.state.education.editModal}>
-        <div>
-          <form>
-            <label htmlfor='instituteName'>Institute Name:</label>
-            <input
-              type='text'
-              id='instituteName'
-              name='instituteName'
-              value={filteredEducation[0].instituteName}
-              onChange={this.handleOnchange}
-              data-id='education'
-            />
-            <label htmlfor='degree'>Degree:</label>
-            <input
-              type='text'
-              id='degree'
-              name='degree'
-              onChange={this.handleOnchange}
-              data-id='education'
-              value={filteredEducation[0].degree}
-            />
-            <label htmlfor='startDate'>Start Date:</label>
-            <input
-              type='date'
-              id='startDate'
-              name='startDate'
-              onChange={this.handleOnchange}
-              data-id='education'
-              value={filteredEducation[0].startDate}
-            />
-            <label htmlfor='endDate'>End Date:</label>
-            <input
-              type='date'
-              id='endDate'
-              name='endDate'
-              onChange={this.handleOnchange}
-              data-id='education'
-              value={filteredEducation[0].endDate}
-            />
-            <label htmlFor='score'>Score</label>
-            <input
-              type='text'
-              id='score'
-              name='score'
-              onChange={this.handleOnchange}
-              data-id='education'
-              value={filteredEducation[0].score}
-            />
-            <label htmlfor='description'>Description:</label>
-            <textarea
-              id='description'
-              cols='30'
-              name='description'
-              rows='10'
-              onChange={this.handleOnchange}
-              data-id='education'
-              value={filteredEducation[0].description}
-            ></textarea>
-          </form>
-          <button onClick={this.hideEducationEditModal}>
-            Update the Education
-          </button>
-        </div>
-      </Modal>
-    );
+  handleOnchange = (e) => {
+    const { id, value } = e.target;
+    if (this.state.showEditModal) {
+      const { selected } = this.state;
+
+      const update = {
+        ...selected[0],
+        [id]: value,
+      };
+      console.log(update);
+      this.setState({ selected: [update] });
+    }
+
+    this.setState((prevState) => ({
+      education: {
+        ...prevState.education,
+
+        [id]: value,
+      },
+    }));
   };
+
+  // EditEducationModalComponent = () => {
+  //   const { education } = this.state;
+  //   const filteredEducation = [education];
+  //   return (
+  //     <Modal isOpen={this.state.education.editModal}>
+  //       <div>
+  //         <form>
+  //           <label htmlfor='instituteName'>Institute Name:</label>
+  //           <input
+  //             type='text'
+  //             id='instituteName'
+  //             name='instituteName'
+  //             value={filteredEducation[0].instituteName}
+  //             onChange={this.handleOnchange}
+  //             data-id='education'
+  //           />
+  //           <label htmlfor='degree'>Degree:</label>
+  //           <input
+  //             type='text'
+  //             id='degree'
+  //             name='degree'
+  //             onChange={this.handleOnchange}
+  //             data-id='education'
+  //             value={filteredEducation[0].degree}
+  //           />
+  //           <label htmlfor='startDate'>Start Date:</label>
+  //           <input
+  //             type='date'
+  //             id='startDate'
+  //             name='startDate'
+  //             onChange={this.handleOnchange}
+  //             data-id='education'
+  //             value={filteredEducation[0].startDate}
+  //           />
+  //           <label htmlfor='endDate'>End Date:</label>
+  //           <input
+  //             type='date'
+  //             id='endDate'
+  //             name='endDate'
+  //             onChange={this.handleOnchange}
+  //             data-id='education'
+  //             value={filteredEducation[0].endDate}
+  //           />
+  //           <label htmlFor='score'>Score</label>
+  //           <input
+  //             type='text'
+  //             id='score'
+  //             name='score'
+  //             onChange={this.handleOnchange}
+  //             data-id='education'
+  //             value={filteredEducation[0].score}
+  //           />
+  //           <label htmlfor='description'>Description:</label>
+  //           <textarea
+  //             id='description'
+  //             cols='30'
+  //             name='description'
+  //             rows='10'
+  //             onChange={this.handleOnchange}
+  //             data-id='education'
+  //             value={filteredEducation[0].description}
+  //           ></textarea>
+  //         </form>
+  //         <button onClick={this.hideEducationEditModal}>
+  //           Update the Education
+  //         </button>
+  //       </div>
+  //     </Modal>
+  //   );
+  // };
   hideEducationEditModal = () => {
     console.log(this.state.education);
     const { education } = this.state;
@@ -143,54 +159,11 @@ class Education extends Component {
           score: '',
           description: '',
           allEducation: updatedEducationList,
-
-          editModal: false,
         },
+        showEditModal: false, // optional: clear selected if done editing
       }),
       this.passData
     );
-  };
-
-  EditEducation = (e) => {
-    const { allEducation } = this.state.education;
-    const filteredEducation = allEducation.filter(
-      (indi) => indi.id == e.currentTarget.dataset.id
-    );
-    console.log('FILTERED eDUCATION : ', filteredEducation[0].instituteName);
-
-    const newObj = {
-      id: e.currentTarget.dataset.id,
-
-      instituteName: 'Amtics',
-
-      degree: 'Bachelor of Technology',
-      startDate: '2020-08-01',
-      endDate: '2024-05-31',
-      score: '8.5',
-    };
-    const newList = allEducation.map((indi) => {
-      if (indi.id == e.currentTarget.dataset.id) {
-        return newObj;
-      }
-      return indi;
-    });
-    console.log(newList);
-    this.setState((prevState) => ({
-      education: {
-        ...prevState.education,
-        id: filteredEducation[0].id,
-        instituteName: filteredEducation[0].instituteName,
-        degree: filteredEducation[0].degree,
-        startDate: filteredEducation[0].startDate,
-        endDate: filteredEducation[0].endDate,
-        score: filteredEducation[0].score,
-        description: filteredEducation[0].description,
-
-        editModal: true,
-        allEducation: newList,
-      },
-    }));
-    this.passData();
   };
 
   DeleteEducation = (e) => {
@@ -203,7 +176,15 @@ class Education extends Component {
     this.setState(
       (prevState) => ({
         education: {
-          ...prevState.education,
+          id: '',
+          instituteName: '',
+          degree: '',
+          startDate: '',
+          endDate: '',
+          score: '',
+          description: '',
+          editModal: false,
+
           allEducation: filteredEducation,
         },
       }),
@@ -212,118 +193,98 @@ class Education extends Component {
     );
   };
 
-  EducationModalComponent = () => {
-    console.log(this.state.education);
-    return (
-      <Modal
-        isOpen={this.state.showEducationModal}
-        contentLabel='Education Modal'
-      >
-        <form>
-          <label htmlfor='instituteName'>Institute Name:</label>
-          <input
-            type='text'
-            id='instituteName'
-            name='instituteName'
-            value={this.state.education.instituteName}
-            onChange={this.handleOnchange}
-            data-id='education'
-          />
-          <label htmlfor='degree'>Degree:</label>
-          <input
-            type='text'
-            id='degree'
-            name='degree'
-            onChange={this.handleOnchange}
-            data-id='education'
-            value={this.state.education.degree}
-          />
-          <label htmlfor='startDate'>Start Date:</label>
-          <input
-            type='date'
-            id='startDate'
-            name='startDate'
-            onChange={this.handleOnchange}
-            data-id='education'
-            value={this.state.education.startDate}
-          />
-          <label htmlfor='endDate'>End Date:</label>
-          <input
-            type='date'
-            id='endDate'
-            name='endDate'
-            onChange={this.handleOnchange}
-            data-id='education'
-            value={this.state.education.endDate}
-          />
-          <label htmlFor='score'>Score</label>
-          <input
-            type='text'
-            id='score'
-            name='score'
-            onChange={this.handleOnchange}
-            data-id='education'
-            value={this.state.education.score}
-          />
-          <label htmlfor='description'>Description:</label>
-          <textarea
-            id='description'
-            cols='30'
-            name='description'
-            rows='10'
-            onChange={this.handleOnchange}
-            data-id='education'
-            value={this.state.education.description}
-          ></textarea>
-          <button
-            onClick={this.hideEducationModal}
-            className='modal-btn'
-            type='button'
-          >
-            Add Education
-          </button>
-        </form>
-      </Modal>
-    );
-  };
-  showEducationModal = (e) => {
+  showModal = (e) => {
     e.preventDefault();
-    this.setState({ showEducationModal: true });
+    this.setState({ showModal: true });
   };
 
-  hideEducationModal = () => {
-    const { instituteName, degree, startDate, endDate, score, description } =
-      this.state.education;
-    const id = uid();
-    const newProfile = {
-      id: id,
-      instituteName: instituteName,
-      degree: degree,
-      startDate: startDate,
-      endDate: endDate,
-      score: score,
-      description: description,
-    };
+  hideModal = (e) => {
+    console.log(this.state.showModal);
+    e.preventDefault();
+    if (this.state.showEditModal) {
+      const { allEducation } = this.state.education;
+      const updatedAllEducation = allEducation.map((indi) => {
+        if (indi.id === this.state.selected[0].id) {
+          return { ...this.state.selected[0] };
+        } else {
+          return indi;
+        }
+      });
 
-    this.setState(
-      (prevState) => ({
-        education: {
-          instituteName: '',
-          degree: '',
-          startDate: '',
-          endDate: '',
-          score: '',
-          description: '',
-          allEducation: [...prevState.education.allEducation, newProfile],
+      this.setState(
+        {
+          education: {
+            id: '',
+            instituteName: '',
+            degree: '',
+            startDate: '',
+            endDate: '',
+            score: '',
+            description: '',
+
+            allEducation: updatedAllEducation,
+          },
+          selected: [],
+          showEditModal: false, // optional: clear selected if done editing
         },
-        showEducationModal: false,
-      }),
-      this.passData
-    );
+        this.passData
+      );
+
+      console.log('update', updatedAllEducation);
+    }
+    if (this.state.showModal) {
+      console.log(this.state.education);
+      const { instituteName, degree, startDate, endDate, score, description } =
+        this.state.education;
+      const id = uid();
+      const newProfile = {
+        id: id,
+        instituteName: instituteName,
+        degree: degree,
+        startDate: startDate,
+        endDate: endDate,
+        score: score,
+        description: description,
+      };
+
+      this.setState(
+        (prevState) => ({
+          education: {
+            id: '',
+            instituteName: '',
+            degree: '',
+            startDate: '',
+            endDate: '',
+            score: '',
+            description: '',
+
+            allEducation: [...prevState.education.allEducation, newProfile],
+          },
+          showModal: false,
+        }),
+        this.passData
+      );
+    }
   };
   passData = () => {
     const getEducationState = this.props.fun;
     getEducationState(this.state.education.allEducation);
+  };
+  allFunction = {
+    hideModal: this.hideModal,
+    onChange: this.handleOnchange,
+  };
+  showEditModalComponent = (e) => {
+    e.preventDefault();
+    const { allEducation } = this.state.education;
+    const selected = allEducation.filter(
+      (indi) => indi.id === e.currentTarget.dataset.id
+    );
+
+    this.setState({
+      showEditModal: true,
+      selected: selected,
+    });
   };
   render() {
     const allEducation = this.state.education?.allEducation || [];
@@ -333,6 +294,17 @@ class Education extends Component {
         <hr />
         <h1>Educations</h1>
         <div>
+          <div>
+            {/* {this.state.showModal && this.EducationModalComponent()} */}
+            {this.state.showModal && (
+              <Modal obj={this.state} fun={this.allFunction} />
+            )}
+          </div>
+          <div>
+            {this.state.showEditModal && (
+              <Modal obj={this.state} fun={this.allFunction} />
+            )}
+          </div>
           {allEducation.length > 0 ? (
             <div>
               <ul className='list'>
@@ -347,7 +319,7 @@ class Education extends Component {
                       ></i>
                       <i
                         className='fa-solid fa-pen'
-                        onClick={this.EditEducation}
+                        onClick={this.showEditModalComponent}
                         data-id={indi.id}
                       ></i>
                     </div>
@@ -359,13 +331,8 @@ class Education extends Component {
             <div></div>
           )}
         </div>
-        <button onClick={this.showEducationModal}>+ Add a new Item</button>
-        <div>
-          {this.state.showEducationModal && this.EducationModalComponent()}
-        </div>
-        <div>
-          {this.state.education.editModal && this.EditEducationModalComponent()}
-        </div>
+        <button onClick={this.showModal}>+ Add a new Item</button>
+
         <hr />
       </div>
     );

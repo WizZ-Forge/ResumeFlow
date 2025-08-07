@@ -39,7 +39,7 @@ class Modal extends Component {
   };
   render() {
     const { obj } = this.props;
-    console.log('hello from Modal');
+
     return this.formMaker();
   }
 }
