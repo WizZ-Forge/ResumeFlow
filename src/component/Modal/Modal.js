@@ -3,6 +3,7 @@ class Modal extends Component {
   formMaker = () => {
     const { fields } = this.props.obj;
     const { showEditModal, showModal } = this.props.obj;
+    console.log('showEditModal', showEditModal);
     const { fun } = this.props;
 
     const { selected } = this.props.obj;
@@ -15,12 +16,22 @@ class Modal extends Component {
               <div className='indi'>
                 <label htmlFor={indi.name}>{indi.label}:</label>
                 {showEditModal ? (
-                  <input
-                    type={indi.type}
-                    id={indi.name}
-                    value={selected[0][value]}
-                    onChange={fun.onChange}
-                  />
+                  indi.type === 'textarea' ? (
+                    <textarea
+                      id={indi.name}
+                      value={selected[0][value]}
+                      onChange={fun.onChange}
+                    ></textarea>
+                  ) : (
+                    <input
+                      type={indi.type}
+                      id={indi.name}
+                      value={selected[0][value]}
+                      onChange={fun.onChange}
+                    />
+                  )
+                ) : indi.type === 'textarea' ? (
+                  <textarea id={indi.name} onChange={fun.onChange}></textarea>
                 ) : (
                   <input
                     type={indi.type}

@@ -1,5 +1,6 @@
 import './Basic.css';
 import Skills from './Skills/Skills';
+import Experience from './Experience/Experience.js';
 const Basic = (props) => {
   const { obj } = props;
 
@@ -83,23 +84,13 @@ const Basic = (props) => {
             ))}
           </ul>
         </div>
-        <div className='experience'>
-          <h2>Experience</h2>
-
-          <ul>
-            <li>
-              <h3>Job Title</h3>
-              <p>Company Name</p>
-              <p>Duration</p>
-              <p>Responsibilities</p>
-            </li>
-          </ul>
-        </div>
+        <Experience Experience={obj.experience} />
         <div className='skills'>
           <h2>Skills</h2>
 
           <Skills skills={skills} />
         </div>
+
         <div className='projects'>
           <h2>Projects</h2>
           <ul>

@@ -148,6 +148,7 @@ class Skills extends Component {
         {!this.state.showModal && (
           <button onClick={this.showModal}>Add new Skills</button>
         )}
+        <hr />
       </div>
     );
   }

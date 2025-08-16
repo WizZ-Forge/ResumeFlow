@@ -9,6 +9,7 @@ import * as icons from 'simple-icons';
 import { uid } from 'uid';
 import Education from './Education';
 import Profile from './Profile';
+import Experience from './Experience';
 
 // import { Button, TextField, Flex, Text } from '@radix-ui/themes';
 
@@ -38,6 +39,7 @@ class Form extends Component {
         level: 3,
       },
     ],
+    experience: [],
 
     summary: '',
   };
@@ -69,6 +71,10 @@ class Form extends Component {
   getSkillState = (data) => {
     console.log(data);
     this.setState({ skills: data });
+  };
+  getExperienceState = (data) => {
+    console.log(data);
+    this.setState({ experience: data });
   };
 
   //{ showEducationModal: false }
@@ -366,6 +372,10 @@ class Form extends Component {
             <Education fun={this.getEducationState} />
 
             <Skills fun={this.getSkillState} />
+
+            <hr />
+
+            <Experience fun={this.getExperienceState} />
           </form>
         </div>
         <div

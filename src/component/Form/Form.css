@@ -1,11 +1,11 @@
 /* ===== Color Variables ===== */
 :root {
   --bg-main: #0d1117;
-  --bg-card: #161b22;
-  --border-color: #30363d;
+  --bg-card: #101012;
+  --border-color: #27272a;
   --text-light: #c9d1d9;
   --text-muted: #8b949e;
-  --accent: #58a6ff;
+  --accent: #0d0d10;
   --accent-hover: #1f6feb;
   --shadow: 0 0 12px rgba(88, 166, 255, 0.1);
 }
@@ -22,7 +22,8 @@ body {
 /* ===== Container Layout ===== */
 .form-container {
   width: 100%;
-  min-height: 100vh;
+  max-height: fit-content;
+
   display: flex;
   gap: 40px;
   justify-content: center;
@@ -36,17 +37,59 @@ body {
   overflow: scroll;
   overflow-y: auto;
 }
+.resume-preview {
+  max-height: 100vh;
+  overflow-y: auto;
+}
 
 /* ===== Form Styles ===== */
 form {
   background-color: var(--bg-card);
   padding: 30px;
   border-radius: 12px;
+  max-height: 100vh;
+  overflow-y: auto;
 
   box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
   border: 1px solid var(--border-color);
+}
+
+form {
+  overflow-y: auto; /* scroll when needed */
+}
+
+/* Chrome, Edge, Safari */
+/* Target all elements */
+* {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #000 transparent; /* Firefox: thumb / track */
+}
+
+/* Chrome, Edge, Safari */
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent; /* minimal look */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #000;
+  border-radius: 10px;
+  border: 2px solid transparent;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #333;
+}
+
+/* Firefox */
+form {
+  scrollbar-width: thin;
+  scrollbar-color: #000 transparent; /* thumb / track */
 }
 
 /* ===== Labels & Inputs ===== */
@@ -66,6 +109,12 @@ textarea {
   border-radius: 6px;
   font-size: 14px;
   transition: 0.3s all;
+  min-height: 20px;
+}
+textarea {
+  resize: vertical;
+  min-height: 140px;
+  max-height: 200px;
 }
 
 input:focus,
@@ -81,7 +130,7 @@ button {
   color: #fff;
   padding: 12px;
   margin-top: 20px;
-  border: none;
+  border-color: (--border-color);
   border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
@@ -89,7 +138,7 @@ button {
 }
 
 button:hover {
-  background-color: var(--accent-hover);
+  background-color: var(--border-color);
 }
 
 /* ===== Resume Output Container ===== */
