@@ -3,6 +3,9 @@ import { Component } from 'react';
 import { uid } from 'uid';
 import Modal from '../Modal/Modal';
 import editUtils from '../../utils/editUtil';
+import findById from '../../utils/findById';
+import hideEditModal from '../../utils/hideEditModal';
+import MakeList from '../../utils/makeList';
 import './Form.css';
 
 class Experience extends Component {
@@ -18,7 +21,7 @@ class Experience extends Component {
     allExperience: [
       {
         id: uid(),
-        companyName: 'Tech Corp',
+        name: 'Tech Corp',
         position: 'Software Engineer',
         startDate: '2020-01-01',
         endDate: '2021-01-01',
@@ -26,7 +29,7 @@ class Experience extends Component {
       },
     ],
     fields: [
-      { name: 'companyName', label: 'Company Name', type: 'text' },
+      { name: 'name', label: 'Company Name', type: 'text' },
       { name: 'position', label: 'Position', type: 'text' },
       { name: 'startDate', label: 'Start Date', type: 'date' },
       { name: 'endDate', label: 'End Date', type: 'date' },
@@ -51,13 +54,11 @@ class Experience extends Component {
     this.setState({ [id]: value });
   };
 
-  showEditModalComponent = (e) => {
+  selectForEdit = (e) => {
     e.preventDefault();
-    const id = e.target.getAttribute('data-id');
-    const { allExperience } = this.state;
-    const selected = allExperience.filter((exp) => exp.id === id);
+    const selected = findById(this.state.allExperience, e.target.dataset.id);
     console.log('selected', selected);
-    this.setState({ selected: selected, showEditModal: true });
+    this.setState({ selected: [selected], showEditModal: true });
   };
   DeleteSkill = (e) => {
     e.preventDefault();
@@ -71,25 +72,30 @@ class Experience extends Component {
     e.preventDefault();
     this.setState({ showModal: true });
   };
+  closeEditModal = (allData) => {
+    this.setState(
+      {
+        allExperience: allData,
+        showEditModal: false,
+        selected: '',
+      },
+      this.passExperienceData
+    );
+  };
+  handleEditExperience = (e) => {
+    e.preventDefault();
+    const obj = {
+      showEditModal: this.state.showEditModal,
+      allData: this.state.allExperience,
+      selected: this.state.selected,
+      fun: this.closeEditModal,
+    };
+    hideEditModal(e, obj);
+  };
   hideModal = (e) => {
     e.preventDefault();
     if (this.state.showEditModal) {
-      const { allExperience } = this.state;
-
-      const updatedAllExperience = editUtils(
-        allExperience,
-        this.state.selected
-      );
-      console.log('updatedAllExperience', updatedAllExperience);
-
-      this.setState(
-        {
-          allExperience: updatedAllExperience,
-          showEditModal: false,
-          selected: '',
-        },
-        this.passExperienceData
-      );
+      this.handleEditExperience(e);
     } else {
       this.addExperience(e);
       this.setState({ showModal: false });
@@ -97,15 +103,15 @@ class Experience extends Component {
   };
   passExperienceData = () => {
     const { allExperience } = this.state;
+
     this.props.fun(allExperience);
   };
   addExperience = (e) => {
     e.preventDefault();
-    const { companyName, position, startDate, endDate, description } =
-      this.state;
+    const { name, position, startDate, endDate, description } = this.state;
     const newExperience = {
       id: uid(),
-      companyName,
+      name,
       position,
       startDate,
       endDate,
@@ -114,7 +120,7 @@ class Experience extends Component {
     this.setState(
       (prevState) => ({
         allExperience: [...prevState.allExperience, newExperience],
-        companyName: '',
+        name: '',
         position: '',
         startDate: '',
         endDate: '',
@@ -132,6 +138,10 @@ class Experience extends Component {
     hideModal: this.hideModal,
     addExperience: this.addExperience,
   };
+  makeListFunction = {
+    deleteItem: this.DeleteSkill,
+    editItem: this.selectForEdit,
+  };
 
   render() {
     const { showModal, fields, allExperience, showEditModal, selected } =
@@ -140,34 +150,14 @@ class Experience extends Component {
     return (
       <div className='experience-form'>
         <h1>Experience</h1>
-        <div className='list'>
-          {allExperience.map((exp) => (
-            <div key={exp.id} className='child'>
-              <h2>{exp.companyName}</h2>
-              <div>
-                <i
-                  className='fa-solid fa-trash'
-                  onClick={this.DeleteSkill}
-                  data-id={exp.id}
-                ></i>
-                <i
-                  className='fa-solid fa-pen'
-                  onClick={this.showEditModalComponent}
-                  data-id={exp.id}
-                ></i>
-              </div>
-            </div>
-          ))}
-        </div>
-        <button onClick={this.showModal}>Add New Item</button>
-        {this.state.showModal && (
+        {(showModal || showEditModal) && (
           <Modal obj={this.state} fun={this.allFunction} />
         )}
-        <div>
-          {this.state.showEditModal && (
-            <Modal obj={this.state} fun={this.allFunction} />
-          )}
+
+        <div className='list'>
+          {MakeList(allExperience, this.makeListFunction)}{' '}
         </div>
+        <button onClick={this.showModal}>Add New Item</button>
       </div>
     );
   }

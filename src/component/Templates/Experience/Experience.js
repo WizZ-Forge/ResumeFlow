@@ -8,7 +8,7 @@ const Experience = (props) => {
         {Experience.map((exp) => (
           <li key={exp.id} className='item'>
             <div className='header'>
-              <strong>{exp.companyName}</strong>
+              <strong>{exp.name}</strong>
               <strong>{`${exp.startDate} - ${exp.endDate}`}</strong>
             </div>
             <h3>{exp.position}</h3>

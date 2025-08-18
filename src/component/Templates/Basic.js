@@ -64,7 +64,7 @@ const Basic = (props) => {
             {allEducation.map((indi) => (
               <li className='indi-education'>
                 <div className='education-upper'>
-                  <strong>{indi.instituteName}</strong>
+                  <strong>{indi.name}</strong>
                   <strong>{`${indi.startDate.split('-')[0]}-${
                     indi.endDate.split('-')[0]
                   }`}</strong>

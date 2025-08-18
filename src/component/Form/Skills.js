@@ -149,6 +149,8 @@ class Skills extends Component {
           <button onClick={this.showModal}>Add new Skills</button>
         )}
         <hr />
+
+        
       </div>
     );
   }
